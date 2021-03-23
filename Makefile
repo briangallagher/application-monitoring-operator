@@ -1,4 +1,4 @@
-ORG ?= integreatly
+ORG ?= bgallagher
 NAMESPACE ?= application-monitoring
 PROJECT ?= application-monitoring-operator
 REG=quay.io
@@ -13,9 +13,9 @@ COMPILE_TARGET=./tmp/_output/bin/$(PROJECT)
 # You can delete this comment afterwards.
 PROMETHEUS_OPERATOR_VERSION=v0.34.0
 LOCAL=local
-GRAFANA_OPERATOR_VERSION=v3.8.1
-AMO_VERSION=1.5.1
-PREV_AMO_VERSION=1.5.0
+GRAFANA_OPERATOR_VERSION=v3.9.0
+AMO_VERSION=1.5.2
+PREV_AMO_VERSION=1.5.1
 
 AUTH_TOKEN=$(shell curl -sH "Content-Type: application/json" -XPOST https://quay.io/cnr/api/v1/users/login -d '{"user": {"username": "$(QUAY_USERNAME)", "password": "${QUAY_PASSWORD}"}}' | jq -r '.token')
 
@@ -34,7 +34,7 @@ setup/travis:
 
 .PHONY: code/run
 code/run:
-	@operator-sdk up local --namespace=${NAMESPACE}
+	@operator-sdk run --local --namespace=${NAMESPACE}
 
 .PHONY: code/compile
 code/compile:
